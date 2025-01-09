@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "react-router dev",
     "build": "cross-env NODE_ENV=production react-router build",
-    "preview": "npm run build && wrangler pages dev",
+    "preview": "npm run build && wrangler pages dev --port 5173",
     "deploy": "npm run build && wrangler pages deploy",
     "check": "npx @biomejs/biome check --write app server *.json",
     "check:ci": "npx @biomejs/biome ci app server *.json"
