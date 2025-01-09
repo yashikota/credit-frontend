@@ -1,16 +1,14 @@
 import Google from "@auth/core/providers/google";
 import { authHandler, initAuthConfig, verifyAuth } from "@hono/auth-js";
 import { Hono } from "hono";
-import { env } from "hono/adapter";
 
 const app = new Hono();
 
 app.use(
   "*",
   initAuthConfig((c) => {
-    const { AUTH_SECRET } = env<{ AUTH_SECRET: string }>(c);
     return {
-      secret: AUTH_SECRET,
+      secret: c.env.AUTH_SECRET,
       providers: [Google],
     };
   }),
