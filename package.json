@@ -2,24 +2,51 @@
   "name": "credit-frontend",
   "type": "module",
   "scripts": {
-    "dev": "dotenv -e .env vite",
-    "build": "vite build",
-    "preview": "wrangler pages dev",
+    "dev": "react-router dev",
+    "build": "cross-env NODE_ENV=production react-router build",
+    "preview": "npm run build && wrangler pages dev",
     "deploy": "npm run build && wrangler pages deploy",
-    "check": "npx @biomejs/biome check --write src",
-    "check:ci": "npx @biomejs/biome ci src"
+    "check": "npx @biomejs/biome check --write app server *.json",
+    "check:ci": "npx @biomejs/biome ci app server *.json"
   },
   "dependencies": {
-    "@hono/oidc-auth": "^1.2.0",
-    "dotenv-cli": "^7.4.4",
-    "hono": "^4.6.12"
+    "@auth/core": "^0.37.4",
+    "@hono/auth-js": "^1.0.15",
+    "@radix-ui/react-avatar": "^1.1.2",
+    "@radix-ui/react-dropdown-menu": "^2.1.4",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@react-router/cloudflare": "^7.1.1",
+    "@react-router/node": "^7.1.1",
+    "@react-router/serve": "^7.1.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
+    "hono": "^4.6.16",
+    "hono-react-router-adapter": "^0.6.0",
+    "isbot": "^5.1.17",
+    "lucide-react": "^0.469.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.1.1",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@cloudflare/workers-types": "^4.20240529.0",
     "@hono/vite-build": "^1.0.0",
-    "@hono/vite-dev-server": "^0.16.0",
-    "vite": "^5.2.12",
-    "wrangler": "^3.57.2"
+    "@hono/vite-dev-server": "^0.17.0",
+    "@react-router/dev": "^7.1.1",
+    "@types/node": "^20",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vite-tsconfig-paths": "^5.1.4",
+    "wrangler": "^3.99.0"
   }
 }
