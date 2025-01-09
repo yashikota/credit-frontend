@@ -1,3 +1,4 @@
+import { SessionProvider } from "@hono/auth-js/react";
 import {
   Links,
   Meta,
@@ -30,7 +31,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <SessionProvider>{children}</SessionProvider>
         <Scripts />
       </body>
     </html>

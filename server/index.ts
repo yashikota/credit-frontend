@@ -21,7 +21,7 @@ app.get("/api/user", (c) => {
   const auth = c.get("authUser");
   const email = auth.session.user?.email;
   if (!email?.endsWith("@oit.ac.jp")) {
-    return c.text("You are not authorized to access this page!", 403);
+    return c.text("You are not OIT member", 403);
   }
   return c.text(`Hello, ${email}`);
 });
