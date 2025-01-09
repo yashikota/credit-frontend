@@ -17,12 +17,23 @@ app.use(
 );
 
 app.use("/api/auth/*", authHandler());
-app.use("*", verifyAuth());
+app.use("/api/*", verifyAuth());
 
 app.get("/api/user", (c) => {
   const auth = c.get("authUser");
   const email = auth.session.user?.email;
+  if (!email?.endsWith("@oit.ac.jp")) {
+    return c.text("You are not authorized to access this page!", 403);
+  }
   return c.text(`Hello, ${email}`);
+});
+
+app.get("/login", (c) => {
+  return c.redirect("/api/auth/signin");
+});
+
+app.get("/logout", (c) => {
+  return c.redirect("/api/auth/signout");
 });
 
 app.get("/health", (c) => {
