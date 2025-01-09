@@ -1,14 +1,27 @@
-import build from '@hono/vite-build/cloudflare-pages'
-import devServer from '@hono/vite-dev-server'
+import { reactRouter } from "@react-router/dev/vite";
+import autoprefixer from "autoprefixer";
+import tailwindcss from "tailwindcss";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 import adapter from '@hono/vite-dev-server/cloudflare'
-import { defineConfig } from 'vite'
+import { cloudflareDevProxy } from '@react-router/dev/vite/cloudflare'
+import serverAdapter from 'hono-react-router-adapter/vite'
+import { getLoadContext } from './load-context'
 
 export default defineConfig({
+  css: {
+    postcss: {
+      plugins: [tailwindcss, autoprefixer],
+    },
+  },
   plugins: [
-    build(),
-    devServer({
-      // adapter, // これを有効にすると Session secret is not provided というエラーが出る
-      entry: 'src/index.tsx'
-    })
-  ]
-})
+    cloudflareDevProxy(),
+    reactRouter(),
+    serverAdapter({
+      adapter,
+      getLoadContext,
+      entry: 'server/index.ts',
+    }),
+    tsconfigPaths(),
+  ],
+});
