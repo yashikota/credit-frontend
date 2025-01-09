@@ -1,3 +1,5 @@
 name = "oit-credit"
-compatibility_date = "2024-12-30"
 pages_build_output_dir = "./build/client"
+
+compatibility_date = "2024-12-30"
+compatibility_flags = ["nodejs_compat"]
