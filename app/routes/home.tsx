@@ -27,8 +27,8 @@ export default function Index() {
                 </Avatar>
                 {session?.user?.name}: {session?.user?.email}
               </div>
-              <a href="/api/user" className="mt-4">
-                <Button>OIT Check</Button>
+              <a href="/api/data" className="mt-4">
+                <Button>data</Button>
               </a>
             </>
           ) : (

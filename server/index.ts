@@ -2,7 +2,12 @@ import Google from "@auth/core/providers/google";
 import { authHandler, initAuthConfig, verifyAuth } from "@hono/auth-js";
 import { Hono } from "hono";
 
-const app = new Hono();
+type Bindings = {
+  AUTH_SECRET: string;
+  DATA_URL: string;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
 
 app.use(
   "*",
@@ -10,6 +15,15 @@ app.use(
     return {
       secret: c.env.AUTH_SECRET,
       providers: [Google],
+      callbacks: {
+        signIn: async ({ user }) => {
+          if (!user?.email) return false;
+          return user.email?.endsWith("@oit.ac.jp") ?? false;
+        },
+      },
+      pages: {
+        error: "/error"
+      }
     };
   }),
 );
@@ -17,13 +31,15 @@ app.use(
 app.use("/api/auth/*", authHandler());
 app.use("/api/*", verifyAuth());
 
-app.get("/api/user", (c) => {
+app.get("/api/data", async (c) => {
   const auth = c.get("authUser");
-  const email = auth.session.user?.email;
-  if (!email?.endsWith("@oit.ac.jp")) {
-    return c.text("You are not OIT member", 403);
+  if (!auth) {
+    return c.text("Not authenticated", 401);
   }
-  return c.text(`Hello, ${email}`);
+
+  const url = c.env.DATA_URL;
+  const data = await fetch(url).then((res) => res.json());
+  return c.json(data);
 });
 
 app.get("/login", (c) => {
