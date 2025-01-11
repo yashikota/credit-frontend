@@ -22,8 +22,8 @@ app.use(
         },
       },
       pages: {
-        error: "/error"
-      }
+        error: "/error",
+      },
     };
   }),
 );
