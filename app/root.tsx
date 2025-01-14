@@ -1,4 +1,4 @@
-import { SessionProvider } from "@hono/auth-js/react";
+import { SessionProvider, signIn, useSession } from "@hono/auth-js/react";
 import {
   Links,
   Meta,
@@ -8,6 +8,7 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
+import { Button } from "./components/ui/button";
 
 export function meta() {
   return [
@@ -39,10 +40,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const { data: _session, status } = useSession();
+
+  if (status === "loading") {
+    return null;
+  }
+
   return (
-    <main>
-      <Outlet />
-    </main>
+    <>
+      {status === "authenticated" ? (
+        <main>
+          <Outlet />
+        </main>
+      ) : (
+        <div className="flex items-center justify-center h-screen">
+          <Button onClick={() => signIn()}>ログイン</Button>
+        </div>
+      )}
+    </>
   );
 }
 

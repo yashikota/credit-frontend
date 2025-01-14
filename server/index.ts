@@ -21,9 +21,6 @@ app.use(
           return user.email?.endsWith("@oit.ac.jp") ?? false;
         },
       },
-      pages: {
-        error: "/error",
-      },
     };
   }),
 );
