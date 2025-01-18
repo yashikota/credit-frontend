@@ -1,0 +1,32 @@
+export interface Data {
+  year: string;
+  faculty: string;
+  department: string;
+  term: string;
+  original_syllabus_url: string;
+  syllabus_app_url: string;
+  numbering: string;
+  lecture_title: string;
+  person: string;
+  enrollment: string;
+  respondent: string;
+  question1: string;
+  question2: string;
+  question3: string;
+  question4: string;
+  question5: string;
+  question6: string;
+  question7: string;
+  question8: string;
+  question9: string;
+  G: string;
+  A: string;
+  B: string;
+  C: string;
+  D: string;
+  F: string;
+  "*": string;
+  pass_rate: string;
+  GPA: string;
+  GPA_median: string;
+}
